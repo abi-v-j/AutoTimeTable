@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACADEMIC YEAR</title>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %} 
+        <table border="10" style="width: 400px; padding: 20px;" align="center">
+            <tr>
+                <td>YEAR</td>
+                <td><input type="text" name="txt_year" id="" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="SUBMIT"></td>
+            </tr>
+    </table>
+    <br><br>
+    <table border="1" align="center">
+        <tr>
+            <td>SNO</td>
+            <td>ACADEMIC_YEAR</td>
+            <td>ACTION</td>
+        </tr>
+        {% for i in year %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Academic_year}}</td>
+            <td><a href="{% url 'Admin:deleteacyear' i.id %}">DELETE</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </form>
+</body>
+</html>

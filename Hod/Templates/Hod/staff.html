@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAFF REGISTRATION</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <h1 style="text-align:center;"><u>STAFF DETAILS</u></h1>
+        <table border="10" style="width: 400px; padding: 20px;" align="center">
+            <tr>
+                <td>NAME</td>
+                <td><input type="text" name="txt_name" id="" required
+                        title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter"
+                        pattern="^[A-Z]+[a-zA-Z ]*$" /></td>
+            </tr>
+            <tr>
+                <td>EMAIL</td>
+                <td><input type="email" name="txt_email" id=""required></td>
+            </tr>
+            <tr>
+                <td>CONTACT</td>
+                <td><input type="text" name="txt_contact" id="" required pattern="[6-9]{1}[0-9]{9}"
+                        title="Phone number with 6-9 and remaing 9 digit with 0-9" /></td>
+            </tr>
+            <tr>
+                <td>DEPARTMENT</td>
+                <td><select name="sel_dept" id="sel_dept" required>
+                    <option value="">--select--</option>
+                    {% for i in dep %}
+                    <option value="{{i.id}}">{{i.department_name}}</option>
+                    {% endfor %}
+                </select></td>
+            </tr>
+            <tr>
+                <td>PASSWORD</td>
+                <td><input type="password" name="txt_password" id="" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="SUBMIT"></td>
+            </tr>
+        </table>
+        <br><br>
+    <table border="1" align="center">
+        <tr>
+            <td>SNO</td>
+            <td>STAFF NAME</td>
+            <td>CONTACT</td>
+            <td>ACTION</td>
+        </tr>
+        {% for i in st %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.staff_name}}</td>
+            <td>{{i.staff_contact}}</td>
+            <td>
+                <a href="{% url 'Hod:assign' i.id %}">ASSIGN</a>
+            </td>
+            
+        </tr>
+        {% endfor %}
+</body>
+</html>

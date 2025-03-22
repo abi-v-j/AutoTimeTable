@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD</title>
+</head>
+
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1 style="text-align:center;"><u>HOD DETAILS</u></h1>
+        <table border="10" style="width: 400px; padding: 20px;" align="center">
+            <tr>
+                <td>NAME</td>
+                <td><input type="text" name="txt_name" id="" required
+                        title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter"
+                        pattern="^[A-Z]+[a-zA-Z ]*$" value="{{edit_data.hod_name}}"></td>
+            </tr>
+            <tr>
+                <td>EMAIL</td>
+                <td><input type="email" name="txt_email" id="" required value="{{edit_data.hod_email}}"></td>
+            </tr>
+            <tr>
+                <td>CONTACT</td>
+                <td><input type="text" name="txt_contact" id="" required pattern="[6-9]{1}[0-9]{9}" 
+                    title="Phone number with 6-9 and remaing 9 digit with 0-9" value="{{edit_data.hod_contact}}"></td>
+            </tr>
+            <tr>
+                <td>PHOTO</td>
+                <td><input type="file" name="file_photo" id="" required value="{{edit_data.hod_photo}}"></td>
+            </tr>
+            <tr>
+                <td>PASSWORD</td>
+                <td><input type="password" name="txt_password" id="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                        required value="{{edit_data.hod_password}}"></td>
+            </tr>
+            <tr>
+                <td>DEPARTMENT</td>
+                <td><select name="sel_dept" id="sel_dept" required value="{{dep.department_name}}">
+                        <option value="">--select--</option>
+                        {% for i in dep %}
+                        <option value="{{i.id}}"{% if edit_data.department.id == i.id %}selected{% endif %}>
+                            {{ i.department_name }}</option>
+                        {% endfor %}
+                    </select></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="SUBMIT"></td>
+            </tr>
+        </table>
+        <br><br>
+        <table border="1" align="center">
+            <tr>
+                <td>SNO</td>
+                <td>DEPARTMENT</td>
+                <td>HOD</td>
+                <td>CONTACT</td>
+                <td>ACTION</td>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.department.department_name}}</td>
+                <td>{{i.hod_name}}</td>
+                <td>{{i.hod_contact}}</td>
+                <td><a href="{% url 'Admin:deletehod' i.id %}">DELETE</a>
+                    <a href="{% url 'Admin:edithod' i.id %}">EDIT</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </form>
+</body>
+
+</html>

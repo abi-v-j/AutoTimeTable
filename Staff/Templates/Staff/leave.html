@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEAVE APPLICATION</title>
+</head>
+<body>
+    <form action="" method="post">
+        <table border="10" align="center">
+            {% csrf_token %}
+            <tr>
+                <td>To Date</td>
+                <td><input type="date" name="txt_date" id="" required></td>
+            </tr>
+            <tr>
+                <td>REASON</td>
+                <td><input type="text" name="txt_reason" id="" required></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="SUBMIT"></td>
+            </tr>
+        </table>
+    </form>
+    <br><br>
+    <table border="1" align="center">
+        <tr>
+            <td>SNO</td>
+            <td>LEAVE DATE</td>
+            <td>LEAVE TO DATE</td>
+            <td>LEAVE REASON</td>
+            <td>STATUS</td>
+            <td>ACTION</td>
+        </tr>
+        {% for i in leave %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.leave_date}}</td>
+            <td>{{i.to_date}}</td>
+            <td>{{i.leave_reason}}</td>
+            {% if i.status == 0 %}
+            <td>PENDING</td>
+            {% elif i.status == 1 %}
+            <td>APPROVED</td>
+            {% else %}
+            <td>REJECTED</td>
+            {% endif %}
+            <td><a href="{% url 'Staff:deleterq' i.id %}">DELETE</a></td>
+        </tr>
+        {% endfor %}
+</body>
+</html>

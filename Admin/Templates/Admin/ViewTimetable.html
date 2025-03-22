@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Timetable</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #000;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .timetable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        .timetable th, .timetable td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .timetable th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+        }
+        .timetable td {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generated Timetable</h1>
+    {% for department in departments %}
+        {% for semester in semesters %}
+            <h2>{{ department.department_name }} - {{ semester.semester_name }}</h2>
+            <table class="timetable">
+                <tr>
+                    <th>Time</th>
+                    {% for day in days %}
+                        <th>{{ day }}</th>
+                    {% endfor %}
+                </tr>
+                {% for time_slot in time_slots %}
+                    <tr>
+                        <td>{{ time_slot.start }}-{{ time_slot.end }}</td>
+                        {% for day in days %}
+                            <td>
+                                    {% for entry in timetable %}
+                                    
+                                        {% if entry.timeslot.day == day and entry.timeslot.start_time == time_slot.start and entry.timeslot.end_time == time_slot.end and entry.department.id == department.id and entry.semester.id == semester.id %}
+                            
+                                            {{ entry.subject.subject_name }}<br><br>{{ entry.staff.staff_name }}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    
+                                    
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

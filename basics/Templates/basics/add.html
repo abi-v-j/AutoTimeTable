@@ -1,0 +1,33 @@
+<html>
+    <body>
+           
+        <form method="post">
+            {% csrf_token %} 
+            <p align="center">
+            <p align="center"><table border ="10" style="width: 400px; padding: 20px">	
+            
+                <tr>
+                    <td>NUMBER 1</td>
+                    <td><input type="text" name="num1" placeholder="ENTER NUMBER 1" required></td>
+                </tr>
+            
+                <tr>
+                    <td>NUMBER 2</td>
+                    <td><input type="text" name="num2" placeholder="ENTER NUMBER 2" required></td>
+                </tr>
+            
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" name="btnadd" value="ADD">
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>RESULT</td>
+
+                    <td>{{result}}</td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

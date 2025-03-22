@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASSIGN SUBJECT</title>
+</head>
+<body>
+    <form action="" method="post">
+    {% csrf_token %}
+    <h1 style="text-align:center;"><u>STAFF DETAILS</u></h1>
+    <table border="10" style="width: 400px; padding: 20px;" align="center">
+        <tr>
+            <td>SEMESTER</td>
+            <td><select name="sel_sem" id="sel_sem" onchange="subject()" required>
+                <option value="">--select--</option>
+                {% for i in sm %}
+                <option value="{{i.id}}">{{i.semester_name}}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+       
+        <tr>
+            <td>DEPARTMENT</td>
+            <td><select name="sel_dept" id="sel_dept" onchange="subject()" required>
+                <option value="">--select--</option>
+                {% for i in dep %}
+                <option value="{{i.id}}">{{i.department_name}}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+
+        <tr>
+            <td>SUBJECT</td>
+            <td><select name="sel_sub" id="sel_sub" required>
+                <option value="">--select--</option>
+            
+            </select></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="SUBMIT"></td>
+        </tr>
+    </table>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function subject() {
+        var did = document.getElementById("sel_dept").value;
+        var sid = document.getElementById("sel_sem").value;
+        var ur = "{% url 'Hod:ajaxsubject' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, sid: sid },
+            success: function (data) {
+                $("#sel_sub").html(data);
+            },
+        });
+    }
+</script>
